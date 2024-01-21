@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 import { useState } from "react";
 import {format} from "date-fns";
 import { DateRange } from "react-date-range";
+import Pretrazivanje from "../../komponente/pretrazivanje/Pretrazivanje";
 
 
 
@@ -14,12 +15,6 @@ const Lista = () => {
   const [date, setDate] = useState(location.state.date);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
-
-
-
-
-
-
 
 return (
     <div>
@@ -73,7 +68,17 @@ return (
             </div>
             <button>Traži</button>
           </div>
-          <div className="listResult"></div>
+          <div className="listResult">
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          <Pretrazivanje/>
+          </div>
         </div>
       </div>
     </div>
