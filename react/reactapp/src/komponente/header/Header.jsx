@@ -1,7 +1,22 @@
-import "./header.css"
-import {faBed, faCar, faPlane, faTaxi} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import "./header.css";
+import {faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRange } from 'react-date-range';
+import { useState } from "react";
+import {format} from "date-fns"
+
+
 const Header = () => {
+  const [openDate, setOpenDate]=useState(false)
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
   return (
     <div className="header">
       <div className="headerContainer">
@@ -33,6 +48,37 @@ const Header = () => {
            Pronađite idealan smeštaj i uživajte u putovanjima bez brige o budžetu.
         </p>
         <button className="headerBtn">Ulogujte se / Registrujte se</button>
+        <div className="headerSearch">
+            <div className="headerSearchItem">
+                <FontAwesomeIcon icon={faBed} classname="headerIcon" />
+                <input 
+                type="text" 
+                placeholder="Gde idete?" 
+                className="headerSearchInput"
+                />
+            </div>
+            <div className="headerSearchItem">
+                <FontAwesomeIcon icon={faCalendarDays} classname="headerIcon" />
+                <span 
+                onClick={()=>setOpenDate(!openDate)} 
+                className="headerSearchText">{`${format(date[0].startDate, "MM/dd/yyyy")} do ${format(date[0].endDate, "MM/dd/yyyy")}`}
+                </span>
+                {openDate && <DateRange
+                 editableDateInputs={true}
+                 onChange={item => setDate([item.selection])}
+                 moveRangeOnFirstSelection={false}
+                 ranges={date}
+                 className="date"
+                />}
+            </div>
+            <div className="headerSearchItem">
+                <FontAwesomeIcon icon={faPerson} classname="headerIcon" />
+                <span className="headerSearchText">2 odrasli 2 dece 1 jedinica</span>
+            </div>
+            <div className="headerSearchItem">
+                <butoon className="headerBtn">Traži</butoon>
+            </div>
+        </div>
       </div>
     </div>
   )
