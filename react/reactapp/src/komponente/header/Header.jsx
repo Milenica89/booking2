@@ -8,7 +8,7 @@ import { useState } from "react";
 import {format} from "date-fns"
 
 
-const Header = () => {
+const Header = ({type}) => {
   const [openDate, setOpenDate]=useState(false)
   const [date, setDate] = useState([
     {
@@ -33,7 +33,7 @@ const Header = () => {
   };
   return (
     <div className="header">
-      <div className="headerContainer">
+      <div className={type === "list" ? "headerContainer listMode" : "headerContainer"}>
         <div className="headerList">
             <div className="headerListItem active">
                  <FontAwesomeIcon icon={faBed} />
@@ -56,7 +56,8 @@ const Header = () => {
                 <span>Taxi od/do aerodroma</span>
             </div>
         </div>
-        <h1 className="headerTitle">Istražujte više, trošite manje!</h1>
+        { type!=="list" &&
+          <><h1 className="headerTitle">Istražujte više, trošite manje!</h1>
         <p className="headerDesc">
            Iskoristite sjajne ponude na našoj aplikaciji za rezervaciju i putujte pametno. Vaše avanture su na dohvat ruke, a uštede čekaju da budu iskusene. 
            Pronađite idealan smeštaj i uživajte u putovanjima bez brige o budžetu.
@@ -124,7 +125,7 @@ const Header = () => {
             <div className="headerSearchItem">
                 <butoon className="headerBtn">Traži</butoon>
             </div>
-        </div>
+        </div></>}
       </div>
     </div>
   )
