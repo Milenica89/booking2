@@ -6,6 +6,11 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import MailLista from "../../komponente/mailLista/MailLista";
 import Footer from "../../komponente/footer/Footer";
+import {
+  faCircleArrowLeft,
+  faCircleArrowRight,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 const Hoteli = () => {
 
   const [slideNumber, setSlideNumber] = useState(0);
@@ -38,12 +43,34 @@ const Hoteli = () => {
     setOpen(true);
   };
 
+  const handleMove = (direction) => {
+    let newSlideNumber;
+
+    if (direction === "l") {
+      newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
+    } else {
+      newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
+    }
+
+    setSlideNumber(newSlideNumber)
+  };
+
 
 return (
     <div>
     <NavBar/>
     <Header type="list" />
     <div className="hotelContainer">
+      {open && 
+      <div className="slider">
+          <FontAwesomeIcon icon={faCircleXmark} className="close" onClick={() => setOpen(false)}/>
+          <FontAwesomeIcon icon={faCircleArrowLeft} className="arrow" onClick={() => handleMove("l")}/>
+          <div className="sliderWrapper">
+            <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+          </div>
+          <FontAwesomeIcon icon={faCircleArrowRight} className="arrow" onClick={() => handleMove("r")}/>
+
+      </div>}
       <div className="hotelWrapper">
         <button className="bookNow">Rezervišite odmah!</button>
         <h1 className="hotelTitle">Grand Hotel</h1>
